@@ -7,6 +7,8 @@ import oauth2client
 from oauth2client import client
 from oauth2client import tools
 
+import codeforces_events
+
 try:
     import argparse
     flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
@@ -57,8 +59,11 @@ def main():
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('calendar', 'v3', http=http)
 
-    # event = service.events().insert(calendarId='primary', body=event).execute()
-    # print('Event created: %s' % (event.get('htmlLink')))
+    events = codeforces_events.get_events()
+
+    for new_event in events:
+        event = service.events().insert(calendarId='primary', body=new_event).execute()
+        print('Event created: %s' % (event.get('htmlLink')))
 
 
 if __name__ == '__main__':
