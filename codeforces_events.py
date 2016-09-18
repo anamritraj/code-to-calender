@@ -19,18 +19,20 @@ def get_events():
                 event_start = event["startTimeSeconds"]
                 event_name = event["name"]
                 event_description = "This round will be " + event["type"] + " kind of event."
-                event_begins = datetime.utcfromtimestamp(int(event_start)).strftime('%Y-%m-%dT%H:%M:%S+05:30')
-                event_ends = datetime.utcfromtimestamp(int(event_start) + int(event_duration)).strftime('%Y-%m-%dT%H:%M:%S+05:30')
+                event_begins = datetime.utcfromtimestamp(int(event_start)).strftime('%Y-%m-%dT%H:%M:%S+00:00')
+                event_ends = datetime.utcfromtimestamp(int(event_start) + int(event_duration)).strftime('%Y-%m-%dT%H:%M:%S+00:00')
 
                 new_event = {
                   'summary': event_name,
                   'location': 'Raipur, India',
                   'description': event_description,
                   'start': {
-                    'dateTime': event_begins
+                    'dateTime': event_begins,
+                    'timeZone': 'Asia/Kolkata'
                   },
                   'end': {
-                    'dateTime': event_ends
+                    'dateTime': event_ends,
+                    'timeZone': 'Asia/Kolkata'
                   },
                   'reminders': {
                     'useDefault': False,
